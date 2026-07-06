@@ -1,0 +1,5 @@
+{
+  "sprint_goal": "Que la propietaria pueda cotizar el precio de una impresion antes de ejecutarla y que el cliente confirme o desista antes de que se gaste insumo.",
+  "capacity": 20,
+  "stories": ["US-03", "US-02", "US-01", "US-04", "US-05"]
+}

@@ -1,0 +1,19 @@
+{
+  "personas": [
+    { "name": "Propietaria", "role": "propietaria", "primary": true },
+    { "name": "Cliente de impresiones", "role": "cliente", "primary": false }
+  ],
+  "pains": [
+    { "id": "imprime-antes-de-cotizar", "source": "observador.md", "persona": "Propietaria" },
+    { "id": "perdida-insumos-canceladas", "source": "propietaria.md", "persona": "Propietaria" },
+    { "id": "sin-herramienta-cotizar", "source": "propietaria_seguimiento.md", "persona": "Propietaria" },
+    { "id": "perdida-no-cuantificada", "source": "propietaria.md", "persona": "Propietaria" },
+    { "id": "costos-insumos-no-registrados", "source": "propietaria_seguimiento.md", "persona": "Propietaria" },
+    { "id": "registro-manual-sin-separar", "source": "propietaria.md", "persona": "Propietaria" },
+    { "id": "conteo-manual-hojas", "source": "observador.md", "persona": "Propietaria" },
+    { "id": "presion-atencion-unipersonal", "source": "propietaria_seguimiento.md", "persona": "Propietaria" },
+    { "id": "precio-mayor-al-esperado", "source": "cliente.md", "persona": "Cliente de impresiones" },
+    { "id": "sin-previsibilidad-de-costo", "source": "cliente.md", "persona": "Cliente de impresiones" },
+    { "id": "sin-tarifario-visible", "source": "observador.md", "persona": "Cliente de impresiones" }
+  ]
+}

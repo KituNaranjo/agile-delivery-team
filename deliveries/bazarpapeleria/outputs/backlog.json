@@ -1,0 +1,168 @@
+{
+  "epics": [
+    {
+      "id": "E-01",
+      "title": "Cotizar y confirmar el precio antes de imprimir",
+      "value": "El cliente decide antes de que se gaste insumo; el patron imprimir-antes-de-cotizar deja de ocurrir y baja el numero de impresiones rechazadas tras impresas (metrica de exito del MVP).",
+      "priority": 1,
+      "origin": ["mvp:propuesta-valor", "mvp:funcionalidades-minimas", "mvp:outcome", "us:US-01", "us:US-04", "us:US-05", "req:R-01", "req:R-02"]
+    },
+    {
+      "id": "E-02",
+      "title": "Preparar una cotizacion fiable y rapida",
+      "value": "La propietaria obtiene el numero de paginas sin imprimir y aplica sus tarifas reales, para que el precio cotizado en E-01 sea correcto y se calcule rapido sin alargar la atencion (R-10).",
+      "priority": 2,
+      "origin": ["mvp:funcionalidades-minimas", "us:US-02", "us:US-03", "req:R-03", "req:R-04", "req:R-10"]
+    },
+    {
+      "id": "E-03",
+      "title": "Dar visibilidad a la perdida y al ingreso (fuera del MVP inicial)",
+      "value": "La propietaria deja de solo percibir la perdida y pasa a dimensionarla, separando ingresos de impresiones y papeleria y estimando el costo real de insumos. Backlog posterior: el MVP Canvas lo declara fuera de alcance hasta probar el nucleo.",
+      "priority": 3,
+      "origin": ["mvp:fuera-de-alcance", "us:US-06", "us:US-07", "us:US-08", "us:US-09", "req:R-05", "req:R-06", "req:R-07", "req:R-08"]
+    }
+  ],
+  "stories": [
+    {
+      "id": "US-01",
+      "epic": "E-01",
+      "as_a": "Propietaria",
+      "want": "calcular el precio de una impresion a partir del numero de paginas y el tipo (blanco/negro o color) antes de imprimir",
+      "so_that": "informarle el total al cliente sin haber gastado aun insumos",
+      "acceptance_criteria": [
+        "Dado un documento con N paginas y un tipo de impresion, cuando ingreso esos datos, entonces el sistema muestra el precio total antes de ejecutar la impresion.",
+        "Dado que aun no he impreso, cuando obtengo el precio, entonces no se ha consumido papel ni tinta."
+      ],
+      "estimate": 3,
+      "dependencies": ["US-02", "US-03"],
+      "open_questions": [],
+      "priority": 1,
+      "origin": ["us:US-01", "req:R-01"]
+    },
+    {
+      "id": "US-04",
+      "epic": "E-01",
+      "as_a": "Propietaria",
+      "want": "mostrarle al cliente el precio estimado antes de imprimir y registrar su confirmacion",
+      "so_that": "imprimir solo cuando el cliente ya acepto el costo",
+      "acceptance_criteria": [
+        "Dado un precio calculado, cuando lo comunico al cliente, entonces el sistema ofrece confirmar o cancelar antes de imprimir.",
+        "Dado que el cliente cancela, cuando registro la cancelacion, entonces no se ejecuta la impresion y no se gasta insumo.",
+        "Dado un precio mostrado, cuando confirmo o cancelo, entonces lo hago en un solo paso, sin agregar pasos adicionales al flujo de venta actual (R-09)."
+      ],
+      "estimate": 3,
+      "dependencies": ["US-01"],
+      "open_questions": [],
+      "priority": 2,
+      "origin": ["us:US-04", "req:R-02"]
+    },
+    {
+      "id": "US-05",
+      "epic": "E-01",
+      "as_a": "Cliente de impresiones",
+      "want": "conocer el precio antes de que se imprima el trabajo",
+      "so_that": "decidir si me conviene gastar ahi o buscar otra opcion sin sorpresas cuando ya esta impreso",
+      "acceptance_criteria": [
+        "Dado un trabajo solicitado, cuando lo entrego, entonces se me informa el precio estimado antes de imprimir y puedo aceptar o desistir.",
+        "Dado un trabajo pequeno pero costoso (por ejemplo una hoja con imagen a color), cuando pregunto, entonces el precio mostrado refleja ese costo antes de ejecutar."
+      ],
+      "estimate": 2,
+      "dependencies": ["US-04"],
+      "open_questions": [],
+      "priority": 3,
+      "origin": ["us:US-05", "req:R-02"]
+    },
+    {
+      "id": "US-02",
+      "epic": "E-02",
+      "as_a": "Propietaria",
+      "want": "conocer cuantas paginas tiene el documento (desde USB, celular o archivo) sin imprimirlo",
+      "so_that": "poder cotizar antes de ejecutar la impresion",
+      "acceptance_criteria": [
+        "Dado un archivo recibido, cuando lo cargo, entonces el sistema indica el numero de paginas sin necesidad de imprimirlo.",
+        "Dado un documento fisico para copias, cuando ingreso la cantidad de paginas manualmente, entonces el conteo queda disponible para la cotizacion."
+      ],
+      "estimate": 5,
+      "dependencies": [],
+      "open_questions": [],
+      "priority": 4,
+      "origin": ["us:US-02", "req:R-03"]
+    },
+    {
+      "id": "US-03",
+      "epic": "E-02",
+      "as_a": "Propietaria",
+      "want": "configurar la tarifa por hoja segun el tipo de impresion (blanco/negro, color)",
+      "so_that": "que el precio calculado use mis precios reales y no un valor fijo",
+      "acceptance_criteria": [
+        "Dado que defino una tarifa por tipo, cuando se calcula un precio, entonces usa la tarifa configurada y no un valor fijo.",
+        "Dado que cambio una tarifa, cuando cotizo de nuevo, entonces el precio refleja el nuevo valor."
+      ],
+      "estimate": 2,
+      "dependencies": [],
+      "open_questions": [],
+      "priority": 5,
+      "origin": ["us:US-03", "req:R-04"]
+    },
+    {
+      "id": "US-06",
+      "epic": "E-03",
+      "as_a": "Propietaria",
+      "want": "registrar los trabajos de impresion cancelados/no cobrados",
+      "so_that": "dejar rastro de la perdida que hoy no anoto en ningun lado",
+      "acceptance_criteria": [
+        "Dado un trabajo cancelado tras cotizar, cuando lo registro, entonces quedan anotados el numero de paginas, el tipo de impresion y la fecha del trabajo cancelado."
+      ],
+      "estimate": 3,
+      "dependencies": ["US-04"],
+      "open_questions": [],
+      "priority": 6,
+      "origin": ["us:US-06", "req:R-06"]
+    },
+    {
+      "id": "US-07",
+      "epic": "E-03",
+      "as_a": "Propietaria",
+      "want": "registrar las ventas de impresiones por separado de las de papeleria",
+      "so_that": "distinguir de donde viene mi ingreso",
+      "acceptance_criteria": [
+        "Dado un cobro, cuando lo registro, entonces queda clasificado como impresion o como producto de papeleria."
+      ],
+      "estimate": 3,
+      "dependencies": [],
+      "open_questions": [],
+      "priority": 7,
+      "origin": ["us:US-07", "req:R-05"]
+    },
+    {
+      "id": "US-08",
+      "epic": "E-03",
+      "as_a": "Propietaria",
+      "want": "un reporte por semana/mes de cuanto perdi en impresiones canceladas y con que frecuencia",
+      "so_that": "dimensionar el problema que hoy solo percibo",
+      "acceptance_criteria": [
+        "Dado un periodo, cuando solicito el reporte, entonces muestra el numero de trabajos cancelados y el total de paginas perdidas en ese periodo."
+      ],
+      "estimate": 5,
+      "dependencies": ["US-06"],
+      "open_questions": [],
+      "priority": 8,
+      "origin": ["us:US-08", "req:R-07"]
+    },
+    {
+      "id": "US-09",
+      "epic": "E-03",
+      "as_a": "Propietaria",
+      "want": "registrar el costo de insumos (papel, tinta)",
+      "so_that": "estimar el costo real por impresion en lugar de calcularlo de memoria",
+      "acceptance_criteria": [
+        "Dado el costo de una resma y de un cartucho, cuando configuro el rendimiento, entonces el sistema estima el costo de insumo por pagina."
+      ],
+      "estimate": 5,
+      "dependencies": [],
+      "open_questions": [],
+      "priority": 9,
+      "origin": ["us:US-09", "req:R-08"]
+    }
+  ]
+}
