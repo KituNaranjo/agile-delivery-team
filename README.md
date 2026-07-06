@@ -43,7 +43,7 @@ El equipo opera bajo las reglas definidas en `CLAUDE.md`:
 agile-delivery-team/
 ├── CLAUDE.md                     ← constitución del proyecto (roles y reglas)
 ├── README.md                    ← este documento
-├── Preguntas_Unidad2_NaranjoChristian.pdf  ← reflexión de 1 página (3 preguntas)
+├── Preguntas_Unidad2_NaranjoChristian.pdf  ← reflexión de 2 página (3 preguntas)
 ├── docs/                        ← evidencia de que los gates funcionan
 │   ├── EvidenciaGateDoR_NaranjoChristian.md
 │   └── captura-1..3.png
